@@ -96,38 +96,44 @@ export default function Stock() {
       )}
       <StockHeader company={company} onRefresh={handleRefresh} />
 
-      <div className="flex items-center gap-2 mt-6 mb-6">
-        <div className="flex gap-1 overflow-x-auto flex-1 bg-[var(--bg-card)] p-1 rounded-xl border border-[var(--border)]">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
-                activeTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-6 mb-6">
+        <div className="relative flex-1">
+          <div className="flex gap-1 overflow-x-auto bg-[var(--bg-card)] p-1 rounded-xl border border-[var(--border)] scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+                  activeTab === tab.id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          {/* Fade hint for scrollable tabs on mobile */}
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[var(--bg-main)] to-transparent pointer-events-none rounded-r-xl sm:hidden" />
         </div>
-        <button
-          onClick={() => generateCompanyPDF(company, lang)}
-          className="flex items-center gap-2 px-3 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-blue-500/40 transition-all whitespace-nowrap"
-          title={t('exportPDF')}
-        >
-          <FileDown className="w-4 h-4" />
-          PDF
-        </button>
-        <button
-          onClick={() => generateCompanyExcel(company, lang)}
-          className="flex items-center gap-2 px-3 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-green-500/40 transition-all whitespace-nowrap"
-          title="Excel"
-        >
-          <FileSpreadsheet className="w-4 h-4" />
-          XLSX
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => generateCompanyPDF(company, lang)}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-blue-500/40 transition-all whitespace-nowrap"
+            title={t('exportPDF')}
+          >
+            <FileDown className="w-4 h-4" />
+            PDF
+          </button>
+          <button
+            onClick={() => generateCompanyExcel(company, lang)}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-green-500/40 transition-all whitespace-nowrap"
+            title="Excel"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            XLSX
+          </button>
+        </div>
       </div>
 
       {activeTab === 'overview' && (

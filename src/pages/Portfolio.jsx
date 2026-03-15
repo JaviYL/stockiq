@@ -566,7 +566,7 @@ function PortfolioDetail({ portfolioId, onBack, isEs, lang, fmtEur }) {
 
       {/* Summary cards */}
       {totalInvested > 0 && projection.yearsElapsed > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
           {[
             { label: isEs ? 'Inversión inicial' : 'Initial investment', value: fmtEur(totalInvested), color: 'text-[var(--text-primary)]' },
             { label: isEs ? 'Valor actual' : 'Current value', value: fmtEur(currentValue), color: 'text-blue-400' },
@@ -610,49 +610,49 @@ function PortfolioDetail({ portfolioId, onBack, isEs, lang, fmtEur }) {
                   const holdingGain = h.amount > 0 ? ((liveVal / h.amount) - 1) * 100 : 0
                   const hasShares = h.shares && h.shares > 0
                   return (
-                    <div key={h.ticker} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 flex items-center gap-4">
-                      <div className="w-3 h-10 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-sm text-blue-400">{h.ticker}</span>
-                          <span className="text-[10px] text-[var(--text-tertiary)] truncate">{h.name || data?.name}</span>
-                        </div>
-                        {data && (
-                          <div className="flex items-center gap-3 mt-1 text-xs text-[var(--text-tertiary)]">
-                            <span>${data.price?.toFixed(2)}</span>
-                            {/* 24h change */}
-                            {data.changePct != null && (
-                              <span className={`flex items-center gap-0.5 font-medium ${data.changePct >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                                {data.changePct >= 0
-                                  ? <TrendingUp className="w-3 h-3" />
-                                  : <TrendingDown className="w-3 h-3" />
-                                }
-                                {data.changePct >= 0 ? '+' : ''}{data.changePct.toFixed(2)}% 24h
-                              </span>
-                            )}
-                            {hasShares && (
-                              <span className="text-[var(--text-tertiary)]">
-                                {h.shares.toFixed(2)} acc.
-                              </span>
-                            )}
-                            {hasShares && (
-                              <span className={`font-medium ${holdingGain >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                                {holdingGain >= 0 ? '+' : ''}{holdingGain.toFixed(1)}%
-                              </span>
-                            )}
-                            <span>{data.sector}</span>
+                    <div key={h.ticker} className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-3 sm:p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-3 h-10 rounded-full flex-shrink-0" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-sm text-blue-400">{h.ticker}</span>
+                            <span className="text-[10px] text-[var(--text-tertiary)] truncate">{h.name || data?.name}</span>
                           </div>
-                        )}
+                          {data && (
+                            <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-xs text-[var(--text-tertiary)]">
+                              <span>${data.price?.toFixed(2)}</span>
+                              {data.changePct != null && (
+                                <span className={`flex items-center gap-0.5 font-medium ${data.changePct >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                                  {data.changePct >= 0
+                                    ? <TrendingUp className="w-3 h-3" />
+                                    : <TrendingDown className="w-3 h-3" />
+                                  }
+                                  {data.changePct >= 0 ? '+' : ''}{data.changePct.toFixed(2)}%
+                                </span>
+                              )}
+                              {hasShares && (
+                                <span className="text-[var(--text-tertiary)]">
+                                  {h.shares.toFixed(2)} acc.
+                                </span>
+                              )}
+                              {hasShares && (
+                                <span className={`font-medium ${holdingGain >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                                  {holdingGain >= 0 ? '+' : ''}{holdingGain.toFixed(1)}%
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <div className="text-right mr-1">
+                      <div className="flex items-center justify-end gap-2 mt-2 sm:mt-0">
+                        <div className="text-right">
                           <input
                             type="number"
                             value={h.amount}
                             onChange={e => handleAmountChange(h.ticker, e.target.value)}
                             min={0}
                             step={100}
-                            className="w-24 px-2 py-1.5 text-right text-sm bg-[var(--bg-main)] border border-[var(--border)] rounded text-[var(--text-primary)] focus:outline-none focus:border-blue-500/50"
+                            className="w-20 sm:w-24 px-2 py-1.5 text-right text-sm bg-[var(--bg-main)] border border-[var(--border)] rounded text-[var(--text-primary)] focus:outline-none focus:border-blue-500/50"
                           />
                           {hasShares && data?.price && (
                             <p className={`text-[10px] mt-0.5 font-medium ${holdingGain >= 0 ? 'text-green-400' : 'text-red-400'}`}>
@@ -660,8 +660,8 @@ function PortfolioDetail({ portfolioId, onBack, isEs, lang, fmtEur }) {
                             </p>
                           )}
                         </div>
-                        <span className="text-xs text-[var(--text-tertiary)] w-8">{isEs ? 'inv.' : 'inv.'}</span>
-                        <span className="text-xs text-[var(--text-secondary)] w-14 text-right font-medium">{pct.toFixed(1)}%</span>
+                        <span className="text-xs text-[var(--text-tertiary)]">{isEs ? 'inv.' : 'inv.'}</span>
+                        <span className="text-xs text-[var(--text-secondary)] font-medium">{pct.toFixed(1)}%</span>
                         <button onClick={() => handleRemoveHolding(h.ticker)} className="text-[var(--text-tertiary)] hover:text-red-400 p-1">
                           <Trash2 className="w-4 h-4" />
                         </button>

@@ -57,6 +57,15 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
 
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Lightweight charts container */
 .tv-lightweight-charts { border-radius: 8px; }
 

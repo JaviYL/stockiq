@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* Dark theme (default) */
+:root, .dark {
+  --bg-main: #0a0b0f;
+  --bg-card: #12131a;
+  --bg-sidebar: #0e0f14;
+  --bg-hover: #1a1b24;
+  --bg-input: #0a0b0f;
+  --border: #1e2030;
+  --border-focus: rgba(59, 130, 246, 0.5);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #6b7280;
+  --text-muted: #4b5563;
+  --text-faint: #374151;
+  --scrollbar-track: #0a0b0f;
+  --scrollbar-thumb: #2e3044;
+  --scrollbar-hover: #3e4054;
+  --metric-neutral: #ffffff;
+}
+
+/* Light theme */
+.light {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --bg-hover: #e2e8f0;
+  --bg-input: #f8fafc;
+  --border: #cbd5e1;
+  --border-focus: rgba(59, 130, 246, 0.5);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-muted: #94a3b8;
+  --text-faint: #cbd5e1;
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-hover: #94a3b8;
+  --metric-neutral: #0f172a;
+}
+
+* {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* Lightweight charts container */
+.tv-lightweight-charts { border-radius: 8px; }
+
+/* Hide default number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Style date inputs to match dark UI */
+input[type="date"] {
+  color-scheme: dark;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.light input[type="date"] {
+  color-scheme: light;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(0.3) hue-rotate(180deg);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+.light input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+}
+input[type="date"]::-webkit-datetime-edit {
+  color: var(--text-primary);
+}
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}

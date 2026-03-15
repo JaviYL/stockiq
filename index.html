@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es" class="dark" id="root-html">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="description" content="StockIQ - AI-powered stock analysis with fundamental metrics, DCF valuation, and more." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <title>STOCKIQ - Analisis Bursatil con IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Only register service worker in production (not on localhost dev server)
+      if ('serviceWorker' in navigator && window.location.hostname !== 'localhost' && !window.location.port) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {})
+        })
+      } else if ('serviceWorker' in navigator) {
+        // In development, unregister any existing service workers to prevent cache issues
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          registrations.forEach(r => r.unregister())
+        })
+        // Also clear SW caches
+        if ('caches' in window) {
+          caches.keys().then(keys => keys.forEach(k => caches.delete(k)))
+        }
+      }
+    </script>
+  </body>
+</html>
